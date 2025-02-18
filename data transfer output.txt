@@ -1,0 +1,35 @@
+import React, { useState } from "react";
+const ParentComponent = () => {
+  const [parentData, setParentData] = useState("Data from Parent"); 
+  const handleDataChange = (newData) => {
+    setParentData(newData);
+  };
+  return (
+    <div>
+      <h1>Parent Component</h1>
+      <p>{parentData}</p>
+      {/* Pass data and callback to Child */}
+      <ChildComponent parentData={parentData} onChangeData={handleDataChange} />
+    </div>
+  );
+};
+const ChildComponent = ({ parentData, onChangeData }) => {
+  const [childData, setChildData] = useState("Data from Child"); // State in Child
+  const handleInputChange = (e) => {
+    setChildData(e.target.value);
+    onChangeData(e.target.value); // Send updated data to Parent
+  };
+  return (
+    <div>
+      <h1>Child Component</h1>
+      <p>{parentData}</p>
+      <input
+        type="text"
+        value={childData}
+        onChange={handleInputChange}
+        placeholder="Enter data to send to Parent"
+      />
+    </div>
+  );
+};
+export default ParentComponent;

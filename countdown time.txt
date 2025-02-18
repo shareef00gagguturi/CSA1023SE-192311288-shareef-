@@ -1,0 +1,47 @@
+import React, { useState, useEffect } from "react";
+
+const CountdownTimer = ({ initialTime }) => {
+  const [timeLeft, setTimeLeft] = useState(initialTime);
+  const [isRunning, setIsRunning] = useState(false);
+
+  useEffect(() => {
+    if (!isRunning || timeLeft <= 0) return;
+
+    const timer = setInterval(() => {
+      setTimeLeft((prevTime) => prevTime - 1);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [isRunning, timeLeft]);
+
+  const startTimer = () => setIsRunning(true);
+  const pauseTimer = () => setIsRunning(false);
+  const resetTimer = () => {
+    setIsRunning(false);
+    setTimeLeft(initialTime);
+  };
+
+  return (
+    <div style={styles.container}>
+      <h1>Countdown Timer</h1>
+      <h2 style={styles.timer}>{timeLeft} seconds</h2>
+      <div>
+        <button onClick={startTimer} style={styles.button}>Start</button>
+        <button onClick={pauseTimer} style={styles.button}>Pause</button>
+        <button onClick={resetTimer} style={styles.button}>Reset</button>
+      </div>
+    </div>
+  );
+};
+
+const styles = {
+  container: { textAlign: "center", marginTop: "50px" },
+  timer: { fontSize: "2rem", color: "#ff4757" },
+  button: { margin: "10px", padding: "10px 20px", fontSize: "1rem" }
+};
+
+function App() {
+  return <CountdownTimer initialTime={10} />;
+}
+
+export default App;

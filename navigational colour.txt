@@ -1,0 +1,26 @@
+import React, { useState } from "react";
+import "./Navbar.css"; // Import the CSS file for styling
+
+const Navbar = () => {
+  const [bgColor, setBgColor] = useState("blue"); // Default color
+
+  // Function to change the background color
+  const changeColor = (color) => {
+    setBgColor(color);
+  };
+
+  return (
+    <div>
+      <nav className="navbar" style={{ backgroundColor: bgColor }}>
+        <h1 className="navbar-title">My Navbar</h1>
+        <div className="button-group">
+          <button onClick={() => changeColor("red")}>Red</button>
+          <button onClick={() => changeColor("green")}>Green</button>
+          <button onClick={() => changeColor("blue")}>Blue</button>
+        </div>
+      </nav>
+    </div>
+  );
+};
+
+export default Navbar;
